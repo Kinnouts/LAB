@@ -19,14 +19,14 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="../../index2.html" class="h1"><b>Login </b>Sistema BQ</a>
+      <a href="index.php" class="h1"><b>Login </b>Sistema BQ</a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Ingresa para empezar tu sesión</p>
 
-      <form action="../../index3.html" method="post">
+      
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" class="form-control" placeholder="Email" id="txt_user">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" placeholder="Password" id="txt_pass">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -52,11 +52,11 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+            <button type="submit" class="btn btn-primary btn-block" onclick="Iniciar_sesion()" >Ingresar</button>
           </div>
           <!-- /.col -->
         </div>
-      </form>
+      
       <!--
         <div class="social-auth-links text-center mt-2 mb-3">
         <a href="#" class="btn btn-block btn-primary">
@@ -92,5 +92,8 @@
 <script src="../Plantilla/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../Plantilla/dist/js/adminlte.min.js"></script>
+<script src="../JS/Usuario.js?rev=<?php echo time();?>"></script>
+<!--Llamo al utilitario de sweetalert-->
+<script src="../Utilitarios/sweetalert2.js"></script>
 </body>
 </html>
