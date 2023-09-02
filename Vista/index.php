@@ -23,6 +23,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="../Plantilla/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../Plantilla/dist/css/adminlte.min.css">
+
+  <!--Para usar font awesome-->
+  <link rel="stylesheet" href="../Utilitarios/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -156,9 +159,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
+
+      <!--Acá voy a poner mi cerrar sesión data-widget="control-sidebar" data-slide="true" href="#"  class="fas fa-th-large" -->
+      
       <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
+        <a class="nav-link"  role="button">
+          <i class="fa fa-sign-out" ></i>
+
         </a>
       </li>
     </ul>
