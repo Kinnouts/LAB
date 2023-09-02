@@ -27,20 +27,50 @@ function Iniciar_sesion(){
 
        if(data.length>0){
          //alert(resp);//Retorna una respuesta de controlador
-        
-        Swal.fire('Logueo exitoso','Mensaje de confirmacion','success')
-       /* $.ajax({
-            url:'../Controlador/Usuario/crear_sesion.php',
-            type:'POST',
-            data:{
-                idusuario:data[0][2],
-                nombre:data[0][4],
-                apellido:data[0][5]
+
+           // alert(data[0][8]);//Verifico que esté tomando el valor de tabla ACTIVO
+
+            
+            if(data[0][8]==0){
+                   // return  Swal.fire('Logueo exitoso','Mensaje de confirmacion','success');
+            
+                    return  Swal.fire('Usuario desactivado',usu+ '. Comuníquese con el adminsitrador','warning');
             }
-        }).done(function(respuesta){
- 
- 
-        })*/
+
+            $.ajax({
+                    url:'../Controlador/Usuario/crear_sesion.php',
+                    type:'POST',
+                    data:{
+                        idusuario:data[0][2],
+                        nombre:data[0][4],
+                        apellido:data[0][5]
+                    }
+                }).done(function(r){
+                        let timerInterval
+                        Swal.fire({
+                        title: 'Bienvenido!',
+                        html: 'Redireccionando en <b></b> milliseconds.',
+                        timer: 1000,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading()
+                            const b = Swal.getHtmlContainer().querySelector('b')
+                            timerInterval = setInterval(() => {
+                            b.textContent = Swal.getTimerLeft()
+                            }, 100)
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval)
+                        }
+                        }).then((result) => {
+                        /* Read more about handling dismissals below */
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                           location.reload()//Actualiza el index
+                        }
+                        })
+                })
+
+
        }else{
             Swal.fire('Mensaje de error','Usuario o clave incorrecta','error');
        }
