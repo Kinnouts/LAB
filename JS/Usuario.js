@@ -8,7 +8,7 @@ function Iniciar_sesion(){
         return Swal.fire(
             'Advertencia',
             'Ingrese sus campos de login',
-            'OK'
+            'warning'
           );
     }
     $.ajax({
@@ -16,15 +16,20 @@ function Iniciar_sesion(){
         url:'../Controlador/Usuario/iniciar_sesion.php',
         type:'POST',
         //Le indico que datos se enviarán al controlador
-        data:{
+        data:{ //A izq van los nombres como los recibirá el controladory a de rva el nombre del js
             u:usu,
             p:pass
         }
 
-    }).done(function(resp){
+    }).done(function(resp){//resp es la repsuesta que trae del controlador
+
         let data=JSON.parse(resp);
+
        if(data.length>0){
-        $.ajax({
+         //alert(resp);//Retorna una respuesta de controlador
+        
+        Swal.fire('Logueo exitoso','Mensaje de confirmacion','success')
+       /* $.ajax({
             url:'../Controlador/Usuario/crear_sesion.php',
             type:'POST',
             data:{
@@ -35,7 +40,9 @@ function Iniciar_sesion(){
         }).done(function(respuesta){
  
  
-        })
+        })*/
+       }else{
+            Swal.fire('Mensaje de error','Usuario o clave incorrecta','error');
        }
        
         //alert(resp);//Retorna una respuesta de controlador
