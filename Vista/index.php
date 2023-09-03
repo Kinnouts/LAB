@@ -163,7 +163,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!--Acá voy a poner mi cerrar sesión data-widget="control-sidebar" data-slide="true" href="#"  class="fas fa-th-large" -->
       
       <li class="nav-item">
-        <a class="nav-link"  role="button">
+        <a class="nav-link"  role="button" href="../Controlador/Usuario/destruir_sesion.php">
+           <?php echo $_SESSION['S_NOMBRE'];   ?>
           <i class="fa fa-sign-out" ></i>
 
         </a>
