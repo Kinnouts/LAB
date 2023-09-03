@@ -93,3 +93,7 @@ function recuerdame(){
         localStorage.checkbox="";
     }
 }
+
+function listar_users(){
+    
+}

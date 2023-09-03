@@ -13,18 +13,39 @@
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
-    <div class="row">
+   
     <div class="col-lg-12">
             <div class="card">
               <div class="card-header">
-                <h5 class="m-0">Featured</h5>
+                <h5 class="m-0"><b>Listado de Usuarios</b></h5>
               </div>
               <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <div class="row">
+                  <div class="col-12 table-responsive"><!--Inserto código de tabla responsiva del sitio de datatable -->
+                  <table id="myTable" class="display">
+                                <thead>
+                                    <tr>
+                                        <th>Column 1</th>
+                                        <th>Column 2</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Row 1 Data 1</td>
+                                        <td>Row 1 Data 2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Row 2 Data 1</td>
+                                        <td>Row 2 Data 2</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                  </div>
+                </div>
               </div>
             </div>
-
-    </div>
+<script>//Script de inicializacion de datatable,no e srequerido,pero lo dejo igual. Recordar que en el resto de referencias y links lo de datatable va luego de JQuery para que pueda funcionar correctamente
+  $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>

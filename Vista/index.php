@@ -16,7 +16,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sistema BQ | Panel Adminsitrativo</title>
-
+  
+  <link href="../Utilitarios/DataTables/datatables.min.css" rel="stylesheet">
+  
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -24,8 +26,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Theme style -->
   <link rel="stylesheet" href="../Plantilla/dist/css/adminlte.min.css">
 
-  <!--Para usar font awesome-->
+  <!--Para usar font awesome, más íconos alucinantes que el link más de arriba-->
   <link rel="stylesheet" href="../Utilitarios/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css">
+
+  
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -312,10 +316,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- REQUIRED SCRIPTS -->
 
+
 <!-- jQuery -->
 <script src="../Plantilla/plugins/jquery/jquery.min.js"></script>
+
+
 <!-- Bootstrap 4 -->
 <script src="../Plantilla/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!--Datatables-->
+<script type="text/javascript" src="../Utilitarios/DataTables/datatables.min.js"></script>
+
 <!-- AdminLTE App -->
 <script src="../Plantilla/dist/js/adminlte.min.js"></script>
 
@@ -323,7 +334,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 function cargar_contenido(id,vista){
   $("#"+id).load(vista);
 }
-
 </script>
+
 </body>
 </html>
