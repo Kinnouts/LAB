@@ -52,8 +52,8 @@ if(isset($_SESSION['S_IDUSER'])){//Si  existe una sesion de usuario
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
+              <input type="checkbox" id="rememberMe">
+              <label for="rememberMe">
                 Recordarme
               </label>
             </div>
@@ -103,5 +103,20 @@ if(isset($_SESSION['S_IDUSER'])){//Si  existe una sesion de usuario
 <script src="../JS/Usuario.js?rev=<?php echo time();?>"></script>
 <!--Llamo al utilitario de sweetalert-->
 <script src="../Utilitarios/sweetalert2.js"></script>
+<script>
+  //Para guardar los datos de user y pass cuando está checkeado remember me
+    const  rmcheck=document.getElementById('rememberMe'),//Con la coma no necesito declarar otra constante, le indico que todas son ctes las sucesivas
+          usuarioInput=document.getElementById('txt_user'),
+          passInput=document.getElementById('txt_pass');
+    if(localStorage.checkbox && localStorage.checkbox !==""){
+      rmcheck.setAttribute("checked","checked");
+      usuarioInput.value=localStorage.user;
+      passInput.value=localStorage.pass;
+    }else{
+      rmcheck.removeAttribute("checked");
+      usuarioInput.value="";
+      passInput.value="";
+    }
+</script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 function Iniciar_sesion(){
     
+    recuerdame();
+
     let usu=document.getElementById('txt_user').value;
     let pass=document.getElementById('txt_pass').value;
 
@@ -77,4 +79,17 @@ function Iniciar_sesion(){
        
         //alert(resp);//Retorna una respuesta de controlador
     })
+}
+function recuerdame(){
+    if(rmcheck.checked && usuarioInput.value!=="" && passInput.value!==""){
+        //Creamos el storage
+        localStorage.user=usuarioInput.value;
+        localStorage.pass=passInput.value;
+        localStorage.checkbox=rmcheck.value;
+
+    }else{ //Si no está tildado el cuadro Remember me, se borran los datos de acceso guardados por defecto
+        localStorage.user="";
+        localStorage.pass="";
+        localStorage.checkbox="";
+    }
 }
