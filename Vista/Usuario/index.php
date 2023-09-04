@@ -29,6 +29,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!--Para usar font awesome, más íconos alucinantes que el link más de arriba-->
   <link rel="stylesheet" href="../Utilitarios/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css">
 
+ 
+
+
   
 </head>
 <body class="hold-transition sidebar-mini">
@@ -327,14 +330,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!--Datatables-->
 <script type="text/javascript" src="../Utilitarios/DataTables/datatables.min.js"></script>
 
+
 <!-- AdminLTE App -->
 <script src="../Plantilla/dist/js/adminlte.min.js"></script>
 
-<script>
-function cargar_contenido(id,vista){
-  $("#"+id).load(vista);
-}
-</script>
 <script>
   function cargar_contenido(id,vista){
   $("#"+id).load(vista);
@@ -374,7 +373,8 @@ function cargar_contenido(id,vista){
           menues.removeClass("active");
           $(this).addClass("active");
         })
-  });
+  })
 </script>
+
 </body>
 </html>
