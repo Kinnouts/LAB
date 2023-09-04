@@ -1,5 +1,5 @@
 
-
+<script src="../../JS/Usuario.js?rev=<?php echo time();?>"></script>
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -44,7 +44,11 @@
                 </div>
               </div>
             </div>
-<script>//Script de inicializacion de datatable,no e srequerido,pero lo dejo igual. Recordar que en el resto de referencias y links lo de datatable va luego de JQuery para que pueda funcionar correctamente
+            
+            
+
+<!-- //Script de inicializacion de datatable,SI es requerido,pero a veces lo sacan. Recordar que en el resto de referencias y links lo de datatable va luego de JQuery para que pueda funcionar correctamente -->          
+<script>
   $(document).ready( function () {
     $('#myTable').DataTable();
 } );
