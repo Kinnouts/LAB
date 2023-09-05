@@ -21,6 +21,9 @@ if(isset($_SESSION['S_IDUSER'])){//Si  existe una sesion de usuario
   <link rel="stylesheet" href="../Plantilla/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../Plantilla/dist/css/adminlte.min.css">
+
+  
+
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -117,6 +120,48 @@ if(isset($_SESSION['S_IDUSER'])){//Si  existe una sesion de usuario
       usuarioInput.value="";
       passInput.value="";
     }
+</script>
+
+<script>
+  function cargar_contenido(id,vista){
+  $("#"+id).load(vista);
+  }
+  var idioma_espanol = {
+    select: {
+      rows: "%d fila seleccionada"
+    },
+    "sProcessing":  "Procesando...",
+    "sLengthMenu":  "Mostrar _MENU_ registros",
+    "sZeroRecords": "No se encontraron resultados",
+    "sEmptyTable":  "Ningun dato disponible en esta table",
+    "sInfo":        "Registros del (_START_ al _END_) total de _TOTAL_ registros",
+    "sInfoEmpty":   "Registros del (0 al 0) total de 0 registros",
+    "sInforFiltered": "(filtrado de un total de _MAX_ registros)",
+    "sInforPostFix": "",
+    "sSearch":       "Buscar:",
+    "sUrl":          "",
+    "sInfoThousands": ",",
+    "sLoadingRecords": "<b>No se encontraron datos</b>",
+    "oPaginate": {
+      "sFirst": "Primero",
+      "sLast":  "Ultimo",
+      "sNext":  "Siguiente",
+      "sPrevious":  "Anterior"
+    },
+    "oAria": {
+      "sSortAscendingD": ":  Activar para ordenar la columna de manera ascendente",
+      "sSortDescending": ":  Activar para ordenar la columna de manera descendente"
+    }
+
+
+  }
+  $(function(){
+        var menues = $(".nav-link");
+        menues.click(function(){
+          menues.removeClass("active");
+          $(this).addClass("active");
+        })
+  })
 </script>
 </body>
 </html>

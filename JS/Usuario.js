@@ -1,3 +1,5 @@
+
+
 function Iniciar_sesion(){
     
     recuerdame();
@@ -94,6 +96,43 @@ function recuerdame(){
     }
 }
 
-function listar_users(){
+//Funcion para listar usuarios
+var tbl_usuario_simple;
+
+function listar_usuario_simple() {
+    tbl_usuario_simple = $("#tablaSimple").DataTable({
+        "ordering": false,
+        "lengthChange": true,
+        "searching": { "regex": false },
+        "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+        "pageLength": 10,
+        "destroy": true,
+        "async": false,
+        "processing": true,
+        "ajax": {
+            "url": "../Controlador/Usuario/controlador_usuario_listar.php", // Reemplaza "obtener_datos.php" con la ruta a tu script PHP    <i class='fa-duotone fa-user-pen fa-fade'></i>
+            "dataSrc": "data" // "data" es la clave que contiene el arreglo de datos en tu JSON
+        },
+        "columns": [
+            {"defaultContent":""},//Aquí va el contador
+            { "data": "nro_ficha" },
+            { "data": "Nombre_paciente" },
+            { "data": "Apellido_paciente" },
+            {"defaultContent":"<button class='btn btn-primary' style='background-color:#F5CBA7'><i class='fa fa-edit'></i></button>"}//Mi boton de edición
+        ]
+       
+    });
+
+    tbl_usuario_simple.on('draw.dt', function () {
+        var PageInfo = tbl_usuario_simple.page.info();
+        tbl_usuario_simple.column(0, { page: 'current' }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1 + PageInfo.start;
+        });
+    });
+
     
 }
+
+
+
+
