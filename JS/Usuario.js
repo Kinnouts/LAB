@@ -96,7 +96,7 @@ function recuerdame(){
     }
 }
 
-//Funcion para listar usuarios
+//Funcion para listar usuarios PACIENTES
 var tbl_usuario_simple;
 
 function listar_usuario_simple() {
@@ -132,6 +132,93 @@ function listar_usuario_simple() {
 
     
 }
+
+//Funcion para listar usuarios BIOQUIMICOS
+var tbl_usuario_bq;
+
+function listar_usuario_bq() {
+    tbl_usuario_bq = $("#tablaBq").DataTable({
+        "ordering": false,
+        "lengthChange": true,
+        "searching": { "regex": false },
+        "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+        "pageLength": 10,
+        "destroy": true,
+        "async": false,
+        "processing": true,
+        "ajax": {
+            "url": "../Controlador/Usuario/controlador_user_bq.php", // Reemplaza "obtener_datos.php" con la ruta a tu script PHP    <i class='fa-duotone fa-user-pen fa-fade'></i>
+            "dataSrc": "data" // "data" es la clave que contiene el arreglo de datos en tu JSON
+        },
+        "columns": [
+            {"defaultContent":""},//Aquí va el contador
+            { "data": "Matricula_profesional" },
+            { "data": "Nombre_bq" },
+            { "data": "Apellido_bq" },
+            {"defaultContent":"<button class='btn btn-primary' style='background-color:#F5CBA7'><i class='fa fa-edit'></i></button>"}//Mi boton de edición
+        ]
+       
+    });
+
+    tbl_usuario_bq.on('draw.dt', function () {
+        var PageInfo = tbl_usuario_bq.page.info();
+        tbl_usuario_bq.column(0, { page: 'current' }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1 + PageInfo.start;
+        });
+    });
+
+    
+}
+//Funcion para listar usuarios MEDICOS
+var tbl_usuario_med;
+
+function listar_usuario_bq() {
+    tbl_usuario_med = $("#tablaMed").DataTable({
+        "ordering": false,
+        "lengthChange": true,
+        "searching": { "regex": false },
+        "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+        "pageLength": 10,
+        "destroy": true,
+        "async": false,
+        "processing": true,
+        "ajax": {
+            "url": "../Controlador/Usuario/controlador_user_med.php", // Reemplaza "obtener_datos.php" con la ruta a tu script PHP    <i class='fa-duotone fa-user-pen fa-fade'></i>
+            "dataSrc": "data" // "data" es la clave que contiene el arreglo de datos en tu JSON
+        },
+        "columns": [
+            {"defaultContent":""},//Aquí va el contador
+            { "data": "Nombre_medico" },
+            { "data": "Apellido_medico" },
+            { "data": "DNI_medico" },
+            { "data": "Especialidad" },
+            {"defaultContent":"<button class='btn btn-primary' style='background-color:#F5CBA7'><i class='fa fa-edit'></i></button>"}//Mi boton de edición
+        ]
+       
+    });
+
+    tbl_usuario_med.on('draw.dt', function () {
+        var PageInfo = tbl_usuario_med.page.info();
+        tbl_usuario_med.column(0, { page: 'current' }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1 + PageInfo.start;
+        });
+    });
+
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

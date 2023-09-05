@@ -53,7 +53,42 @@ public function listar_usuario(){
     conexionBD::cerrar_conexion();//llamo a cerrar_conexion de modelo conexion
 }
 
+public function listar_bq(){
+    $c=conexionBD::conexionPDO();//Llama a conexion pdo
+    //Procedimiento almacenado
+    $sql="CALL SP_LISTAR_BQ";//Solo voy a mandar usuario único porque voy a encriptar contraseña
+    $arreglo=array();
+    $query=$c->prepare($sql);//método prepare en pdo
+    //Se envían los parámetros
+    $query->execute();
 
+    $resultado=$query->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach($resultado as $resp){
+        $arreglo["data"][] = $resp;
+    }
+    return $arreglo;//Arreglo vacío de valor 0
+    conexionBD::cerrar_conexion();//llamo a cerrar_conexion de modelo conexion
+}
+
+
+public function listar_med(){
+    $c=conexionBD::conexionPDO();//Llama a conexion pdo
+    //Procedimiento almacenado
+    $sql="CALL SP_LISTAR_MED";//Solo voy a mandar usuario único porque voy a encriptar contraseña
+    $arreglo=array();
+    $query=$c->prepare($sql);//método prepare en pdo
+    //Se envían los parámetros
+    $query->execute();
+
+    $resultado=$query->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach($resultado as $resp){
+        $arreglo["data"][] = $resp;
+    }
+    return $arreglo;//Arreglo vacío de valor 0
+    conexionBD::cerrar_conexion();//llamo a cerrar_conexion de modelo conexion
+}
 
 }
 

@@ -1,6 +1,5 @@
 
 <script src="../JS/Usuario.js?rev=<?php echo time();?>"></script>
-<script src="../JS/Usuario.js?rev=<?php echo time();?>"></script>
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -18,7 +17,7 @@
     <div class="col-lg-12">
             <div class="card">
               <div class="card-header">
-                <h5 class="m-0"><b>Listado de Usuarios</b></h5>
+                <h5 class="m-0"><b>Listado de Pacientes</b></h5>
               </div>
               <div class="card-body">
                 <div class="row">
