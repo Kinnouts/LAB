@@ -1,5 +1,6 @@
 
 <script src="../JS/Usuario.js?rev=<?php echo time();?>"></script>
+<script src="../JS/Usuario.js?rev=<?php echo time();?>"></script>
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -46,6 +47,37 @@
             
 
 <!-- //Script de inicializacion de datatable,SI es requerido,pero a veces lo sacan. Recordar que en el resto de referencias y links lo de datatable va luego de JQuery para que pueda funcionar correctamente -->          
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<!-- script que lista los usuarios-->
+<!--<script>
+  $("#tabla_usuario_simple").DataTable({
+        "ordering": false,
+        "lengthChange": true,
+        "searching": { "regex": false },
+        "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+        "pageLength": 10,
+        "destroy": true,
+        "async": false,
+        "processing": true,
+        "ajax": {
+            "url": "../Controlador/Usuario/controlador_usuario_listar.php", // Reemplaza "obtener_datos.php" con la ruta a tu script PHP
+            "dataSrc": "data" // "data" es la clave que contiene el arreglo de datos en tu JSON
+        },
+        "columns": [
+            { "data": "usu_id" },
+            { "data": "usu_nombre" },
+            { "data": "rol_nombre" },
+            { "data": "usu_status" },
+            { "data": "usu_email" }
+        ]
+       
+    });
+</script>-->
+
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 

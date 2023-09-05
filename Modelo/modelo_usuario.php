@@ -22,6 +22,7 @@ public function Verificar_user($user, $pass){
     $hash=password_hash($password,PASSWORD_DEFAULT);
 
  
+ 
     foreach($resultado as $resp){
 
         if(password_verify($pass,$hash)){
