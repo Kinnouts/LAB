@@ -202,12 +202,26 @@ function listar_usuario_bq() {
         tbl_usuario_med.column(0, { page: 'current' }).nodes().each(function (cell, i) {
             cell.innerHTML = i + 1 + PageInfo.start;
         });
-    });
-
-    
+    }); 
 }
 
+//Registrar NUEVO PAciente
+function openRegistroPac(){
+    //Llamo al modal
+   // $("#modal_registro_paciente").modal('show');//Esta forma realmente no es eficiente de usar modal en JS, no me lo permite
+    //Se emplea una sintaxis muy distinta a la dada
 
+   // Obtén una referencia al elemento modal por su ID
+    var miModal = document.getElementById('modal_registro_paciente');
+
+    // Crea una instancia de Bootstrap Modal
+    var modal = new bootstrap.Modal(miModal, {
+        backdrop: 'static'});//Usa comando Modal en mayuscula
+    // Abre el modal
+    modal.show();
+
+
+}
 
 
 
