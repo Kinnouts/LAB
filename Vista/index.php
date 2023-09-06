@@ -399,5 +399,7 @@ function cargar_contenido(id,vista){
         })
   });
 </script>
+<!--Llamo al utilitario de sweetalert-->
+<script src="../Utilitarios/sweetalert2.js"></script>
 </body>
 </html>

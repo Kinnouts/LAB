@@ -219,11 +219,25 @@ function openRegistroPac(){
         backdrop: 'static'});//Usa comando Modal en mayuscula
     // Abre el modal
     modal.show();
-
-
 }
 
+//Validar campos de registro de cualquier usuario
+function Validar_campos_pac(){
+    
+    let ficha=document.getElementById('text_ficha').value;
+    let nombre=document.getElementById('text_nombre').value;
+    let apellido=document.getElementById('text_apellido').value;
 
+    if(ficha.length==0||nombre.length==0||apellido.length==0){
+        return Swal.fire('Advertencia', 'Llene los campos vacios', 'warning');
+    }
+    
+   
+   
+    
+    
+    
+}
 
 
 

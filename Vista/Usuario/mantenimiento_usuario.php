@@ -1,5 +1,6 @@
 
 <script src="../JS/Usuario.js?rev=<?php echo time();?>"></script>
+
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -61,15 +62,15 @@
         <div class="row">
         <div class="col-12">
             <label for="">N° Ficha</label>
-            <input type="text" id="text_pac" class="form-control">
+            <input type="text" id="text_ficha" class="form-control">
           </div>
           <div class="col-12">
             <label for="">Nombre</label>
-            <input type="text" id="text_pac" class="form-control">
+            <input type="text" id="text_nombre" class="form-control">
           </div>
           <div class="col-12">
             <label for="">Apellido</label>
-            <input type="text" id="text_pac" class="form-control">
+            <input type="text" id="text_apellido" class="form-control">
           </div>
 
         </div>
@@ -77,7 +78,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary" onclick="Validar_campos_pac()">Save changes</button>
       </div>
     </div>
   </div>
@@ -88,4 +89,5 @@
 <!-- //Script de inicializacion de datatable,SI es requerido,pero a veces lo sacan. Recordar que en el resto de referencias y links lo de datatable va luego de JQuery para que pueda funcionar correctamente -->          
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<!--<script>Validar_campos_pac().js</script>-->
 
