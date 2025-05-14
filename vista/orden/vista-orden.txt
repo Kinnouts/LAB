@@ -1,0 +1,1377 @@
+<!-- Vista principal para la gestión de órdenes -->
+<div class="col-md-12">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Gestión de Órdenes</h3>
+            <button type="button" class="btn btn-success float-right" onclick="abrirModalRegistro()">
+                <i class="fas fa-plus"></i> Nueva Orden
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table id="tabla_ordenes" class="display responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID Orden</th>
+                                <th>Paciente</th>
+                                <th>DNI</th>
+                                <th>Médico Solicitante</th>
+                                <th>Bioquímico</th>
+                                <th>Fecha Ingreso</th>
+                                <th>Urgente</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para registrar órdenes -->
+<div class="modal fade" id="modal_registro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title" id="titulo_modal">Registrar Orden</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="paciente-tab" data-toggle="tab" href="#paciente" role="tab" aria-controls="paciente" aria-selected="true">1. Datos del Paciente</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="medico-tab" data-toggle="tab" href="#medico" role="tab" aria-controls="medico" aria-selected="false">2. Médico y Bioquímico</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="analisis-tab" data-toggle="tab" href="#analisis" role="tab" aria-controls="analisis" aria-selected="false">3. Análisis</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <!-- Pestaña de paciente -->
+                            <div class="tab-pane fade show active" id="paciente" role="tabpanel" aria-labelledby="paciente-tab">
+                                <div class="card card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="txt_buscar_paciente">Buscar Paciente:</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="txt_buscar_paciente" placeholder="Ingrese DNI, nombre o apellido">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-outline-secondary" type="button" id="btn_buscar_paciente">
+                                                            <i class="fas fa-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <small class="text-muted">Busque por DNI, nombre o apellido</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <div>
+                                                    <button type="button" class="btn btn-success" onclick="abrirRegistroPaciente()">
+                                                        <i class="fas fa-user-plus"></i> Registrar Nuevo Paciente
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Datos del paciente seleccionado -->
+                                    <div class="row mt-3" id="div_datos_paciente" style="display:none;">
+                                        <div class="col-md-12">
+                                            <div class="card card-info">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Datos del Paciente Seleccionado</h3>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <input type="hidden" id="nro_ficha_paciente">
+                                                            <div class="form-group">
+                                                                <label>DNI:</label>
+                                                                <input type="text" class="form-control" id="txt_dni_paciente" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Nombre Completo:</label>
+                                                                <input type="text" class="form-control" id="txt_nombre_paciente" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label>Fecha Nacimiento:</label>
+                                                                <input type="text" class="form-control" id="txt_fecha_nacimiento" disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label>Sexo:</label>
+                                                                <input type="text" class="form-control" id="txt_sexo" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label>Grupo Sanguíneo:</label>
+                                                                <input type="text" class="form-control" id="txt_grupo_sanguineo" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label>Mutual:</label>
+                                                                <input type="text" class="form-control" id="txt_mutual" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label>Nro. Afiliado:</label>
+                                                                <input type="text" class="form-control" id="txt_nro_afiliado" disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <button type="button" class="btn btn-primary float-right" onclick="$('#medico-tab').tab('show');">Siguiente</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Pestaña de médico y bioquímico -->
+                            <div class="tab-pane fade" id="medico" role="tabpanel" aria-labelledby="medico-tab">
+                                <div class="card card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="cmb_medico">Médico Solicitante:</label>
+                                                <select class="form-control select2" id="cmb_medico" style="width: 100%;">
+                                                    <option value="">Seleccione un médico</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <div>
+                                                    <button type="button" class="btn btn-success" onclick="abrirRegistroMedico()">
+                                                        <i class="fas fa-user-md"></i> Registrar Nuevo Médico
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="cmb_bioquimico">Bioquímico que Efectúa:</label>
+                                                <select class="form-control select2" id="cmb_bioquimico" style="width: 100%;">
+                                                    <option value="">Seleccione un bioquímico</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <div>
+                                                    <button type="button" class="btn btn-success" onclick="abrirRegistroBioquimico()">
+                                                        <i class="fas fa-flask"></i> Registrar Nuevo Bioquímico
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="chk_urgente">
+                                                    <label class="custom-control-label" for="chk_urgente">Marcar como URGENTE</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="btn-group float-right">
+                                                <button type="button" class="btn btn-secondary" onclick="$('#paciente-tab').tab('show');">Anterior</button>
+                                                <button type="button" class="btn btn-primary" onclick="validarPasoMedico();">Siguiente</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Pestaña de análisis -->
+                            <div class="tab-pane fade" id="analisis" role="tabpanel" aria-labelledby="analisis-tab">
+                                <div class="card card-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="cmb_analisis">Seleccionar Análisis:</label>
+                                                <select class="form-control select2" id="cmb_analisis" style="width: 100%;">
+                                                    <option value="">Seleccione un análisis</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <button type="button" class="btn btn-success btn-block" onclick="agregarAnalisis()">
+                                                    <i class="fas fa-plus"></i> Agregar Análisis
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <div class="card card-danger">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Análisis Seleccionados</h3>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered table-striped" id="tabla_analisis_seleccionados">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th width="10%">Código</th>
+                                                                    <th width="35%">Descripción</th>
+                                                                    <th width="35%">Módulo</th>
+                                                                    <th width="10%">Honorarios</th>
+                                                                    <th width="10%">Acción</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="tbody_analisis">
+                                                                <tr>
+                                                                    <td colspan="5" class="text-center">No hay análisis seleccionados</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="btn-group float-right">
+                                                <button type="button" class="btn btn-secondary" onclick="$('#medico-tab').tab('show');">Anterior</button>
+                                                <button type="button" class="btn btn-success" onclick="validarRegistroOrden();">Guardar Orden</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para ver detalle de orden -->
+<div class="modal fade" id="modal_detalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title">Detalle de Orden</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Orden #:</label>
+                            <input type="text" class="form-control" id="txt_id_orden_detalle" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Fecha:</label>
+                            <input type="text" class="form-control" id="txt_fecha_detalle" disabled>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Paciente:</label>
+                            <input type="text" class="form-control" id="txt_paciente_detalle" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>DNI:</label>
+                            <input type="text" class="form-control" id="txt_dni_detalle" disabled>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Médico Solicitante:</label>
+                            <input type="text" class="form-control" id="txt_medico_detalle" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Bioquímico:</label>
+                            <input type="text" class="form-control" id="txt_bioquimico_detalle" disabled>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Prioridad:</label>
+                            <input type="text" class="form-control" id="txt_urgente_detalle" disabled>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <h5 class="text-primary">Análisis Solicitados</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" id="tabla_detalle_analisis">
+                                <thead class="bg-info">
+                                    <tr>
+                                        <th width="10%">Código</th>
+                                        <th width="40%">Descripción</th>
+                                        <th width="25%">Módulo</th>
+                                        <th width="25%">Fecha Realización</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_detalle_analisis">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success" id="btn_registrar_valores" onclick="abrirFormularioValores()">Registrar Valores</button>
+                <button type="button" class="btn btn-primary" id="btn_generar_reporte" onclick="generarReporte()">Generar Reporte</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para registrar valores hallados -->
+<div class="modal fade" id="modal_valores" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title">Registrar Valores Hallados</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="id_orden_valores">
+                <input type="hidden" id="codigo_practica_valores">
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 id="txt_analisis_valores" class="text-primary"></h5>
+                    </div>
+                </div>
+                
+                <div class="row mt-3" id="div_sin_valores" style="display:none;">
+                    <div class="col-md-12">
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle"></i> Este análisis no tiene valores de referencia asignados.
+                            Debe asignar valores de referencia desde la gestión de análisis antes de registrar resultados.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-3" id="div_tabla_valores">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" id="tabla_valores_referencia">
+                                <thead class="bg-success text-white">
+                                    <tr>
+                                        <th width="10%">#</th>
+                                        <th width="20%">Tipo</th>
+                                        <th width="25%">Rango Referencia</th>
+                                        <th width="25%">Valor Hallado</th>
+                                        <th width="20%">Unidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_valores_referencia">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" onclick="guardarValoresHallados()">Guardar Valores</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Inicializar DataTable
+        let tabla = $('#tabla_ordenes').DataTable({
+            "processing": true,
+            "responsive": true,
+            "ajax": {
+                "url": "../controller/orden/controller-orden-nuevo.php",
+                "type": "POST",
+                "data": { accion: "listar" }
+            },
+            "columns": [
+                { "data": "id_orden" },
+                { "data": "paciente" },
+                { "data": "DNI" },
+                { "data": "medico_solicitante" },
+                { "data": "bioquimico" },
+                { "data": "fecha_ingreso" },
+                { "data": "urgente", render: function(data) {
+                    return data == 1 ? 
+                        '<span class="badge badge-danger">URGENTE</span>' : 
+                        '<span class="badge badge-info">Normal</span>';
+                }},
+                { "defaultContent": `
+                    <button class="btn btn-info btn-sm ver_detalle" title="Ver Detalle">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-success btn-sm valores" title="Registrar Valores">
+                        <i class="fas fa-flask"></i>
+                    </button>
+                    <button class="btn btn-primary btn-sm imprimir" title="Generar Reporte">
+                        <i class="fas fa-print"></i>
+                    </button>` 
+                }
+            ],
+            "order": [[0, 'desc']],
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json"
+            }
+        });
+        
+        // Evento para ver detalle
+        $('#tabla_ordenes tbody').on('click', '.ver_detalle', function() {
+            let data = tabla.row($(this).parents('tr')).data();
+            verDetalleOrden(data.id_orden);
+        });
+        
+        // Evento para registrar valores
+        $('#tabla_ordenes tbody').on('click', '.valores', function() {
+            let data = tabla.row($(this).parents('tr')).data();
+            verDetalleOrden(data.id_orden, true);
+        });
+        
+        // Evento para imprimir
+        $('#tabla_ordenes tbody').on('click', '.imprimir', function() {
+            let data = tabla.row($(this).parents('tr')).data();
+            generarReporteOrden(data.id_orden);
+        });
+        
+        // Inicializar Select2
+        $('.select2').select2({
+            dropdownParent: $('#modal_registro')
+        });
+        
+        // Configurar autocomplete para búsqueda de pacientes
+        $("#txt_buscar_paciente").autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                    url: '../controller/paciente/buscar_pacientes.php',
+                    type: 'POST',
+                    dataType: "json",
+                    data: {
+                        valor: request.term
+                    },
+                    success: function(data) {
+                        response($.map(data, function(item) {
+                            return {
+                                label: item.paciente + " - DNI: " + item.paciente_dni,
+                                value: item.paciente,
+                                id: item.paciente_id,
+                                dni: item.paciente_dni
+                            };
+                        }));
+                    }
+                });
+            },
+            minLength: 2,
+            select: function(event, ui) {
+                // Mostrar datos del paciente seleccionado
+                cargarDatosPaciente(ui.item.id);
+                
+                return false;
+            }
+        });
+        
+        // Botón de búsqueda de paciente
+        $("#btn_buscar_paciente").click(function() {
+            if($("#txt_buscar_paciente").val().trim() === "") {
+                Swal.fire({
+                    title: 'Advertencia',
+                    text: 'Ingrese DNI, nombre o apellido del paciente',
+                    icon: 'warning'
+                });
+                return;
+            }
+            
+            // Si hay texto, forzar búsqueda en autocomplete
+            $("#txt_buscar_paciente").autocomplete("search", $("#txt_buscar_paciente").val());
+        });
+        
+        // Cargar select de médicos
+        cargarSelectMedicos();
+        
+        // Cargar select de bioquímicos
+        cargarSelectBioquimicos();
+        
+        // Cargar select de análisis
+        cargarSelectAnalisis();
+    });
+    
+    /**
+     * Abre el modal de registro de orden
+     */
+    function abrirModalRegistro() {
+        // Limpiar todo el formulario
+        $('#div_datos_paciente').hide();
+        $('#txt_buscar_paciente').val('');
+        $('#cmb_medico').val('').trigger('change');
+        $('#cmb_bioquimico').val('').trigger('change');
+        $('#chk_urgente').prop('checked', false);
+        $('#cmb_analisis').val('').trigger('change');
+        $('#tbody_analisis').html('<tr><td colspan="5" class="text-center">No hay análisis seleccionados</td></tr>');
+        
+        // Mostrar la primera pestaña
+        $('#paciente-tab').tab('show');
+        
+        // Mostrar modal
+        $('#modal_registro').modal('show');
+    }
+    
+    /**
+     * Carga los datos de un paciente por su ID
+     * @param {int} id ID del paciente
+     */
+    function cargarDatosPaciente(id) {
+        $.ajax({
+            url: '../controller/paciente/obtener_paciente.php',
+            type: 'POST',
+            data: {
+                nro_ficha: id
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response) {
+                    // Llenar datos del paciente
+                    $('#nro_ficha_paciente').val(response.nro_ficha);
+                    $('#txt_dni_paciente').val(response.DNI);
+                    $('#txt_nombre_paciente').val(response.Apellido_paciente + ' ' + response.Nombre_paciente);
+                    $('#txt_fecha_nacimiento').val(response.fecha_nacimiento);
+                    $('#txt_sexo').val(response.sexo == 'M' ? 'Masculino' : 'Femenino');
+                    $('#txt_grupo_sanguineo').val(response.grupo_sanguineo);
+                    $('#txt_mutual').val(response.mutual);
+                    $('#txt_nro_afiliado').val(response.nro_afiliado);
+                    
+                    // Mostrar panel de datos
+                    $('#div_datos_paciente').show();
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'No se encontraron datos del paciente',
+                        icon: 'error'
+                    });
+                }
+            },
+            error: function() {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Error al cargar datos del paciente',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+    
+    /**
+     * Carga el select de médicos
+     */
+    function cargarSelectMedicos() {
+        $.ajax({
+            url: '../controller/medico/listar_select_medico.php',
+            type: 'POST',
+            dataType: 'json',
+            success: function(response) {
+                // Limpiar select
+                $('#cmb_medico').empty().append('<option value="">Seleccione un médico</option>');
+                
+                // Agregar opciones
+                if (response && response.length > 0) {
+                    response.forEach(function(item) {
+                        $('#cmb_medico').append(`<option value="${item[0]}">${item[1]}</option>`);
+                    });
+                }
+            }
+        });
+    }
+    
+    /**
+     * Carga el select de bioquímicos
+     */
+    function cargarSelectBioquimicos() {
+        $.ajax({
+            url: '../controller/bioquimico/listar_select_bioquimico.php',
+            type: 'POST',
+            dataType: 'json',
+            success: function(response) {
+                // Limpiar select
+                $('#cmb_bioquimico').empty().append('<option value="">Seleccione un bioquímico</option>');
+                
+                // Agregar opciones
+                if (response && response.length > 0) {
+                    response.forEach(function(item) {
+                        $('#cmb_bioquimico').append(`<option value="${item[0]}">${item[1]}</option>`);
+                    });
+                }
+            }
+        });
+    }
+    
+    /**
+     * Carga el select de análisis
+     */
+    function cargarSelectAnalisis() {
+        $.ajax({
+            url: '../controller/analisis/controller-analisis-nuevo.php',
+            type: 'POST',
+            data: {
+                accion: 'select'
+            },
+            dataType: 'json',
+            success: function(response) {
+                // Limpiar select
+                $('#cmb_analisis').empty().append('<option value="">Seleccione un análisis</option>');
+                
+                // Agregar opciones
+                if (response && response.length > 0) {
+                    response.forEach(function(item) {
+                        $('#cmb_analisis').append(`<option value="${item[0]}">${item[1]}</option>`);
+                    });
+                }
+            }
+        });
+    }
+    
+    /**
+     * Abre modal para registrar nuevo paciente
+     */
+    function abrirRegistroPaciente() {
+        // Redirigir a la página de registro de pacientes
+        // o abrir un modal para registrar paciente
+        Swal.fire({
+            title: 'Funcionalidad en desarrollo',
+            text: 'La opción de registro de pacientes desde aquí está en desarrollo',
+            icon: 'info'
+        });
+    }
+    
+    /**
+     * Abre modal para registrar nuevo médico
+     */
+    function abrirRegistroMedico() {
+        // Redirigir a la página de registro de médicos
+        // o abrir un modal para registrar médico
+        Swal.fire({
+            title: 'Funcionalidad en desarrollo',
+            text: 'La opción de registro de médicos desde aquí está en desarrollo',
+            icon: 'info'
+        });
+    }
+    
+    /**
+     * Abre modal para registrar nuevo bioquímico
+     */
+    function abrirRegistroBioquimico() {
+        // Redirigir a la página de registro de bioquímicos
+        // o abrir un modal para registrar bioquímico
+        Swal.fire({
+            title: 'Funcionalidad en desarrollo',
+            text: 'La opción de registro de bioquímicos desde aquí está en desarrollo',
+            icon: 'info'
+        });
+    }
+    
+    /**
+     * Valida el paso del médico y bioquímico
+     */
+    function validarPasoMedico() {
+        if ($('#cmb_medico').val() === '') {
+            Swal.fire({
+                title: 'Advertencia',
+                text: 'Debe seleccionar un médico solicitante',
+                icon: 'warning'
+            });
+            return;
+        }
+        
+        // Avanzar a la siguiente pestaña
+        $('#analisis-tab').tab('show');
+    }
+    
+    /**
+     * Agrega un análisis a la lista
+     */
+    function agregarAnalisis() {
+        let analisis_id = $('#cmb_analisis').val();
+        
+        if (analisis_id === '') {
+            Swal.fire({
+                title: 'Advertencia',
+                text: 'Debe seleccionar un análisis',
+                icon: 'warning'
+            });
+            return;
+        }
+        
+        // Verificar si ya existe el análisis
+        if ($(`#analisis_${analisis_id}`).length > 0) {
+            Swal.fire({
+                title: 'Advertencia',
+                text: 'Este análisis ya está en la lista',
+                icon: 'warning'
+            });
+            return;
+        }
+        
+        // Buscar datos del análisis
+        $.ajax({
+            url: '../controller/analisis/obtener_analisis.php',
+            type: 'POST',
+            data: {
+                codigo_practica: analisis_id
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response) {
+                    // Si es el primer elemento, limpiar el mensaje
+                    if ($('#tbody_analisis').find('td[colspan="5"]').length > 0) {
+                        $('#tbody_analisis').empty();
+                    }
+                    
+                    // Agregar fila
+                    let fila = `
+                        <tr id="analisis_${response.CODIGO_DE_PRACTICA}">
+                            <td>${response.CODIGO_DE_PRACTICA}</td>
+                            <td>${response.DESCRIPCION_DE_PRACTICA}</td>
+                            <td>${response.DESCRIPCION_DE_MODULO}</td>
+                            <td>${parseFloat(response.HONORARIOS).toFixed(2)}</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" onclick="quitarAnalisis(${response.CODIGO_DE_PRACTICA})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                    $('#tbody_analisis').append(fila);
+                    
+                    // Limpiar selección
+                    $('#cmb_analisis').val('').trigger('change');
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'No se pudo obtener información del análisis',
+                        icon: 'error'
+                    });
+                }
+            },
+            error: function() {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Error al obtener datos del análisis',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+    
+    /**
+     * Quita un análisis de la lista
+     * @param {int} id ID del análisis
+     */
+    function quitarAnalisis(id) {
+        $(`#analisis_${id}`).remove();
+        
+        // Si no quedan análisis, mostrar mensaje
+        if ($('#tbody_analisis').find('tr').length === 0) {
+            $('#tbody_analisis').html('<tr><td colspan="5" class="text-center">No hay análisis seleccionados</td></tr>');
+        }
+    }
+    
+    /**
+     * Valida y registra la orden
+     */
+    function validarRegistroOrden() {
+        // Validar paciente
+        if ($('#nro_ficha_paciente').val() === '') {
+            Swal.fire({
+                title: 'Advertencia',
+                text: 'Debe seleccionar un paciente',
+                icon: 'warning'
+            });
+            $('#paciente-tab').tab('show');
+            return;
+        }
+        
+        // Validar médico
+        if ($('#cmb_medico').val() === '') {
+            Swal.fire({
+                title: 'Advertencia',
+                text: 'Debe seleccionar un médico solicitante',
+                icon: 'warning'
+            });
+            $('#medico-tab').tab('show');
+            return;
+        }
+        
+        // Validar que haya análisis
+        if ($('#tbody_analisis').find('td[colspan="5"]').length > 0) {
+            Swal.fire({
+                title: 'Advertencia',
+                text: 'Debe agregar al menos un análisis',
+                icon: 'warning'
+            });
+            return;
+        }
+        
+        // Recopilar datos
+        let nro_ficha = $('#nro_ficha_paciente').val();
+        let id_medico = $('#cmb_medico').val();
+        let id_bioquimico = $('#cmb_bioquimico').val() || null;
+        let urgente = $('#chk_urgente').is(':checked') ? 1 : 0;
+        
+        // Registrar orden
+        $.ajax({
+            url: '../controller/orden/controller-orden-nuevo.php',
+            type: 'POST',
+            data: {
+                accion: 'registrar',
+                nro_ficha: nro_ficha,
+                id_medico: id_medico,
+                id_bioquimico: id_bioquimico,
+                urgente: urgente
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    // Registrar análisis
+                    registrarAnalisisOrden(response.id_orden);
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message,
+                        icon: 'error'
+                    });
+                }
+            },
+            error: function() {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Error al registrar la orden',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+    
+    /**
+     * Registra los análisis de una orden
+     * @param {int} id_orden ID de la orden creada
+     */
+    function registrarAnalisisOrden(id_orden) {
+        let analisis = [];
+        
+        // Recopilar IDs de análisis
+        $('#tbody_analisis tr').each(function() {
+            let codigo = $(this).find('td:first').text();
+            if (codigo) {
+                analisis.push(codigo);
+            }
+        });
+        
+        // Contador para registros
+        let contador = 0;
+        let total = analisis.length;
+        let errores = 0;
+        
+        // Registrar cada análisis
+        analisis.forEach(function(codigo) {
+            $.ajax({
+                url: '../controller/orden/controller-orden-nuevo.php',
+                type: 'POST',
+                data: {
+                    accion: 'agregar_analisis',
+                    id_orden: id_orden,
+                    codigo_practica: codigo
+                },
+                dataType: 'json',
+                success: function(response) {
+                    contador++;
+                    
+                    if (response.status !== 'success') {
+                        errores++;
+                    }
+                    
+                    // Si se completaron todos
+                    if (contador === total) {
+                        finalizarRegistroOrden(id_orden, errores);
+                    }
+                },
+                error: function() {
+                    contador++;
+                    errores++;
+                    
+                    // Si se completaron todos
+                    if (contador === total) {
+                        finalizarRegistroOrden(id_orden, errores);
+                    }
+                }
+            });
+        });
+    }
+    
+    /**
+     * Finaliza el registro de la orden
+     * @param {int} id_orden ID de la orden
+     * @param {int} errores Cantidad de errores
+     */
+    function finalizarRegistroOrden(id_orden, errores) {
+        if (errores === 0) {
+            Swal.fire({
+                title: 'Éxito',
+                text: 'Orden registrada correctamente',
+                icon: 'success'
+            }).then(() => {
+                // Cerrar modal
+                $('#modal_registro').modal('hide');
+                
+                // Recargar tabla
+                $('#tabla_ordenes').DataTable().ajax.reload();
+            });
+        } else {
+            Swal.fire({
+                title: 'Advertencia',
+                text: 'La orden se registró, pero hubo errores al agregar algunos análisis',
+                icon: 'warning'
+            }).then(() => {
+                // Cerrar modal
+                $('#modal_registro').modal('hide');
+                
+                // Recargar tabla
+                $('#tabla_ordenes').DataTable().ajax.reload();
+            });
+        }
+    }
+    
+    /**
+     * Ver detalle de una orden
+     * @param {int} id_orden ID de la orden
+     * @param {boolean} mostrarValores Indica si se debe mostrar el formulario de valores
+     */
+    function verDetalleOrden(id_orden, mostrarValores = false) {
+        $.ajax({
+            url: '../controller/orden/controller-orden-nuevo.php',
+            type: 'POST',
+            data: {
+                accion: 'obtener_orden',
+                id_orden: id_orden
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response) {
+                    // Llenar datos de la orden
+                    $('#txt_id_orden_detalle').val(response.id_orden);
+                    $('#txt_fecha_detalle').val(response.fecha_ingreso);
+                    $('#txt_paciente_detalle').val(response.paciente);
+                    $('#txt_dni_detalle').val(response.DNI);
+                    $('#txt_medico_detalle').val(response.medico_solicitante);
+                    $('#txt_bioquimico_detalle').val(response.bioquimico || 'No asignado');
+                    $('#txt_urgente_detalle').val(response.urgente == 1 ? 'URGENTE' : 'Normal');
+                    
+                    // Llenar tabla de análisis
+                    $('#tbody_detalle_analisis').empty();
+                    
+                    if (response.analisis && response.analisis.length > 0) {
+                        response.analisis.forEach(function(item) {
+                            let fila = `
+                                <tr data-codigo="${item.Codigo_de_practica}">
+                                    <td>${item.Codigo_de_practica}</td>
+                                    <td>${item.DESCRIPCION_DE_PRACTICA}</td>
+                                    <td>${item.DESCRIPCION_DE_MODULO}</td>
+                                    <td>${item.fecha_realizacion_analisis || 'Pendiente'}</td>
+                                </tr>
+                            `;
+                            $('#tbody_detalle_analisis').append(fila);
+                        });
+                        
+                        // Hacer clickeables las filas para registrar valores
+                        $('#tbody_detalle_analisis tr').css('cursor', 'pointer').click(function() {
+                            let codigo = $(this).data('codigo');
+                            abrirFormularioValoresAnalisis(id_orden, codigo);
+                        });
+                    } else {
+                        $('#tbody_detalle_analisis').html('<tr><td colspan="4" class="text-center">No hay análisis asociados</td></tr>');
+                    }
+                    
+                    // Mostrar modal
+                    $('#modal_detalle').modal('show');
+                    
+                    // Si se debe mostrar el formulario de valores y hay análisis
+                    if (mostrarValores && response.analisis && response.analisis.length > 0) {
+                        // Abrir formulario de valores para el primer análisis
+                        setTimeout(function() {
+                            abrirFormularioValoresAnalisis(id_orden, response.analisis[0].Codigo_de_practica);
+                        }, 500);
+                    }
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'No se pudo obtener información de la orden',
+                        icon: 'error'
+                    });
+                }
+            },
+            error: function() {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Error al obtener datos de la orden',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+    
+    /**
+     * Abre el formulario para registrar valores hallados
+     */
+    function abrirFormularioValores() {
+        let id_orden = $('#txt_id_orden_detalle').val();
+        
+        // Verificar si hay análisis
+        if ($('#tbody_detalle_analisis tr').length === 0 || $('#tbody_detalle_analisis').find('td[colspan="4"]').length > 0) {
+            Swal.fire({
+                title: 'Advertencia',
+                text: 'No hay análisis para registrar valores',
+                icon: 'warning'
+            });
+            return;
+        }
+        
+        // Tomar el primer análisis
+        let codigo = $('#tbody_detalle_analisis tr:first').data('codigo');
+        
+        abrirFormularioValoresAnalisis(id_orden, codigo);
+    }
+    
+    /**
+     * Abre el formulario para registrar valores de un análisis específico
+     * @param {int} id_orden ID de la orden
+     * @param {int} codigo_practica Código de la práctica
+     */
+    function abrirFormularioValoresAnalisis(id_orden, codigo_practica) {
+        // Guardar datos
+        $('#id_orden_valores').val(id_orden);
+        $('#codigo_practica_valores').val(codigo_practica);
+        
+        // Obtener datos del análisis
+        $.ajax({
+            url: '../controller/analisis/obtener_analisis.php',
+            type: 'POST',
+            data: {
+                codigo_practica: codigo_practica
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response) {
+                    // Mostrar nombre del análisis
+                    $('#txt_analisis_valores').text(`${response.CODIGO_DE_PRACTICA} - ${response.DESCRIPCION_DE_PRACTICA}`);
+                    
+                    // Cargar valores de referencia
+                    $.ajax({
+                        url: '../controller/valor_referencia/obtener_valores_referencia_analisis.php',
+                        type: 'POST',
+                        data: {
+                            codigo_practica: codigo_practica
+                        },
+                        dataType: 'json',
+                        success: function(valores) {
+                            // Limpiar tabla
+                            $('#tbody_valores_referencia').empty();
+                            
+                            if (valores && valores.length > 0) {
+                                // Mostrar tabla, ocultar mensaje
+                                $('#div_tabla_valores').show();
+                                $('#div_sin_valores').hide();
+                                
+                                // Llenar tabla
+                                valores.forEach(function(item, index) {
+                                    let fila = `
+                                        <tr>
+                                            <td>${index + 1}</td>
+                                            <td>${item.tipo_persona}</td>
+                                            <td>${item.valor_inicial_de_rango} - ${item.valor_final_de_rango} ${item.unidad}</td>
+                                            <td>
+                                                <input type="number" step="0.01" class="form-control valor_hallado" 
+                                                    data-id-valor="${item.id_valor_ref}" 
+                                                    value="${item.valor_hallado || ''}" 
+                                                    placeholder="Valor">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control unidad_valor" 
+                                                    data-id-valor="${item.id_valor_ref}" 
+                                                    value="${item.unidad_valor_hallado || item.unidad}" 
+                                                    placeholder="Unidad">
+                                            </td>
+                                        </tr>
+                                    `;
+                                    $('#tbody_valores_referencia').append(fila);
+                                });
+                            } else {
+                                // Ocultar tabla, mostrar mensaje
+                                $('#div_tabla_valores').hide();
+                                $('#div_sin_valores').show();
+                            }
+                            
+                            // Mostrar modal de valores
+                            $('#modal_detalle').modal('hide');
+                            $('#modal_valores').modal('show');
+                        },
+                        error: function() {
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'Error al obtener valores de referencia',
+                                icon: 'error'
+                            });
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'No se pudo obtener información del análisis',
+                        icon: 'error'
+                    });
+                }
+            },
+            error: function() {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Error al obtener datos del análisis',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+    
+    /**
+     * Guarda los valores hallados
+     */
+    function guardarValoresHallados() {
+        let codigo_practica = $('#codigo_practica_valores').val();
+        let id_orden = $('#id_orden_valores').val();
+        let errores = 0;
+        let contador = 0;
+        let totalValores = $('.valor_hallado').length;
+        
+        // Si no hay valores de referencia
+        if (totalValores === 0) {
+            Swal.fire({
+                title: 'Advertencia',
+                text: 'Este análisis no tiene valores de referencia para registrar',
+                icon: 'warning'
+            });
+            return;
+        }
+        
+        // Validar que se hayan ingresado todos los valores
+        let valoresCompletos = true;
+        $('.valor_hallado').each(function() {
+            if ($(this).val().trim() === '') {
+                valoresCompletos = false;
+                return false;
+            }
+        });
+        
+        if (!valoresCompletos) {
+            Swal.fire({
+                title: 'Advertencia',
+                text: 'Debe ingresar todos los valores hallados',
+                icon: 'warning'
+            });
+            return;
+        }
+        
+        // Registrar cada valor
+        $('.valor_hallado').each(function() {
+            let id_valor_ref = $(this).data('id-valor');
+            let valor_hallado = $(this).val();
+            let unidad_valor_hallado = $(this).closest('tr').find('.unidad_valor').val();
+            
+            $.ajax({
+                url: '../controller/orden/controller-orden-nuevo.php',
+                type: 'POST',
+                data: {
+                    accion: 'registrar_valor',
+                    codigo_practica: codigo_practica,
+                    id_valor_ref: id_valor_ref,
+                    valor_hallado: valor_hallado,
+                    unidad_valor_hallado: unidad_valor_hallado
+                },
+                dataType: 'json',
+                success: function(response) {
+                    contador++;
+                    
+                    if (response.status !== 'success') {
+                        errores++;
+                    }
+                    
+                    // Si se completaron todos
+                    if (contador === totalValores) {
+                        finalizarRegistroValores(id_orden, codigo_practica, errores);
+                    }
+                },
+                error: function() {
+                    contador++;
+                    errores++;
+                    
+                    // Si se completaron todos
+                    if (contador === totalValores) {
+                        finalizarRegistroValores(id_orden, codigo_practica, errores);
+                    }
+                }
+            });
+        });
+    }
+    
+    /**
+     * Finaliza el registro de valores
+     * @param {int} id_orden ID de la orden
+     * @param {int} codigo_practica Código de la práctica
+     * @param {int} errores Cantidad de errores
+     */
+    function finalizarRegistroValores(id_orden, codigo_practica, errores) {
+        if (errores === 0) {
+            // Marcar análisis como realizado
+            $.ajax({
+                url: '../controller/orden/controller-orden-nuevo.php',
+                type: 'POST',
+                data: {
+                    accion: 'marcar_realizado',
+                    id_orden: id_orden,
+                    codigo_practica: codigo_practica
+                },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        Swal.fire({
+                            title: 'Éxito',
+                            text: 'Valores registrados correctamente',
+                            icon: 'success'
+                        }).then(() => {
+                            // Cerrar modal
+                            $('#modal_valores').modal('hide');
+                            
+                            // Recargar tabla
+                            $('#tabla_ordenes').DataTable().ajax.reload();
+                            
+                            // Actualizar detalle
+                            verDetalleOrden(id_orden);
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Advertencia',
+                            text: 'Los valores se registraron, pero hubo un error al marcar el análisis como realizado',
+                            icon: 'warning'
+                        }).then(() => {
+                            // Cerrar modal
+                            $('#modal_valores').modal('hide');
+                            
+                            // Recargar tabla
+                            $('#tabla_ordenes').DataTable().ajax.reload();
+                            
+                            // Actualizar detalle
+                            verDetalleOrden(id_orden);
+                        });
+                    }
+                },
+                error: function() {
+                    Swal.fire({
+                        title: 'Advertencia',
+                        text: 'Los valores se registraron, pero hubo un error al marcar el análisis como realizado',
+                        icon: 'warning'
+                    }).then(() => {
+                        // Cerrar modal
+                        $('#modal_valores').modal('hide');
+                        
+                        // Recargar tabla
+                        $('#tabla_ordenes').DataTable().ajax.reload();
+                        
+                        // Actualizar detalle
+                        verDetalleOrden(id_orden);
+                    });
+                }
+            });
+        } else {
+            Swal.fire({
+                title: 'Error',
+                text: 'Hubo errores al registrar los valores',
+                icon: 'error'
+            });
+        }
+    }
+    
+    /**
+     * Genera un reporte de la orden
+     */
+    function generarReporte() {
+        let id_orden = $('#txt_id_orden_detalle').val();
+        generarReporteOrden(id_orden);
+    }
+    
+    /**
+     * Genera un reporte de la orden
+     * @param {int} id_orden ID de la orden
+     */
+    function generarReporteOrden(id_orden) {
+        window.open(`../controller/orden/generar_reporte.php?id=${id_orden}`, '_blank');
+    }
+</script>
